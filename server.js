@@ -7,18 +7,20 @@ dotenv.config();
 
 const ncsRoute = require('./Router/ncs');
 const psatRoute = require('./Router/psat');
+const userRouter = require('./Router/user');
 
 const app = express();
 require('./config/database');
 
 app.use(cors());
 app.use(morgan('dev'));
-app.use('./uploads/', express.static('uploades'));
+app.use('./uploads/', express.static('uploads'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use('/lecture/ncs', ncsRoute);
 app.use('/lecture/psat', psatRoute);
+app.use('/users', userRouter);
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
